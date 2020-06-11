@@ -1,4 +1,4 @@
-package com.example.videostreamingapp;
+package com.example.videostreamingapp.retrofit;
 
 import com.example.videostreamingapp.model.ApiResponse;
 

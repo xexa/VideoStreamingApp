@@ -5,4 +5,6 @@
     <string name="_100k_views">100K Views</string>
     <string name="_5_days_ago">5 Days Ago</string>
     <string name="video_thumbnail">Video thumbnail</string>
+    <string name="description">Description</string>
+    <string name="video_description">Video Description</string>
 </resources>

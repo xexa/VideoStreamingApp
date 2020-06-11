@@ -1,14 +1,19 @@
-package com.example.videostreamingapp;
+package com.example.videostreamingapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.videostreamingapp.R;
+import com.example.videostreamingapp.adapter.VideoAdapter;
 import com.example.videostreamingapp.model.ApiResponse;
 import com.example.videostreamingapp.model.Video;
+import com.example.videostreamingapp.retrofit.ApiClient;
 
 import java.util.List;
 
@@ -47,9 +52,26 @@ public class MainActivity extends AppCompatActivity {
                 ApiResponse apiResponse = response.body();
 
                 if (response.isSuccessful()){
-                    List<Video> videos = apiResponse.getCategories().get(0).getVideos();
+                    final List<Video> videos = apiResponse.getCategories().get(0).getVideos();
 
                     videoAdapter = new VideoAdapter(videos);
+
+                    videoAdapter.setOnItemClickListener(new VideoAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View itemView, int position) {
+
+                            Bundle b = new Bundle();
+                            b.putSerializable("videoData", videos.get(position));
+
+                            Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
+                            Toast.makeText(MainActivity.this, videos.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+
+                            //send data to other activity using Bundle
+
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+                    });
 
                     recyclerView.setAdapter(videoAdapter);
                 }
